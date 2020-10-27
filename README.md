@@ -9,6 +9,8 @@ I started this for serializing MongoDB documents as part of one of my projects. 
 The sole intention is to have a learning experience along with knowledge sharing plus community help.
 
 # TODO
+* ListField with nested composite fields returns list with None when max_depth=0.
+* Add support for more plausible data types.
 * Memory profiling.
 * Concurrency.
 * Nested field exclusion.

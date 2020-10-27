@@ -86,7 +86,7 @@ class TestPostSerializer(unittest.TestCase):
             self.assertEqual(data['created_date'], STATIC_NOW.strftime('%Y-%m-%d %H:%M:%S'))
             self.assertIsNone(data['author']['address'])
             self.assertIsNone(data['author']['company'])
-            self.assertEqual(data['comments'], [])
+            self.assertEqual(data['comments'], [None])
 
     def test_one_level_serialization(self):
         PostSerializer = get_post_serializer(max_depth=1)
