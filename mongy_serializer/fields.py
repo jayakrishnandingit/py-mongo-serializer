@@ -94,8 +94,6 @@ class CompositeField(SerializerField):
     Composite field base class.
     """
     def serialize(self, value):
-        if not value:
-            return value
         if self.depth > self.max_depth:
             return None
         return value
@@ -150,7 +148,7 @@ class ListField(CompositeField):
                 exclude_fields=self.exclude_fields
             )
             serialized_data.append(field.serialize(v))
-        return serialized_data if all(serialized_data) else []
+        return serialized_data
 
 
 # Dispatch the appropriate field according to the type of value.
