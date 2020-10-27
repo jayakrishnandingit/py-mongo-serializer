@@ -57,7 +57,8 @@ class Serializer(metaclass=SerializerMeta):
 
     @property
     def data(self):
-        return iter([self.serialize_object(obj) for obj in self])
+        for obj in self:
+            yield self.serialize_object(obj)
 
     def serialize_object(self, obj):
         serialized_data = {}

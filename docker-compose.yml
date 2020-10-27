@@ -1,0 +1,26 @@
+version: "3.3"
+
+services:
+  mongy_mongo:
+    image: mongo:4.4.1-bionic
+    container_name: mongy_mongo
+    environment:
+      - MONGO_INITDB_DATABASE=Mongy
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+      - MONGO_INITDB_ROOT_USERNAME=
+      - MONGO_INITDB_ROOT_PASSWORD=
+    ports:
+      - 27017:27017
+
+  mongy_app:
+    build: .
+    image: mongy_app:latest
+    container_name: mongy_app
+    depends_on:
+      - mongy_mongo
+    environment:
+      - MONGO_HOST=mongy_mongo
+      - MONGO_USERNAME=
+      - MONGO_PASSWORD=
+      - MONGO_DATABASE_NAME=Mongy

@@ -150,7 +150,7 @@ class ListField(CompositeField):
                 exclude_fields=self.exclude_fields
             )
             serialized_data.append(field.serialize(v))
-        return serialized_data
+        return serialized_data if all(serialized_data) else []
 
 
 # Dispatch the appropriate field according to the type of value.
