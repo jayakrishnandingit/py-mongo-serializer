@@ -13,6 +13,8 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout the repo.
+        uses: actions/checkout@v2
       - name: List all files.
         run: |
           ls -l
