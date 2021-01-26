@@ -15,11 +15,6 @@ jobs:
     steps:
       - name: Checkout the repo.
         uses: actions/checkout@v2
-      - name: List all files.
-        run: |
-          ls -l
-      - name: Docker build.
-        run: docker-compose build mongy_app
       - name: Create env file.
         run: |
           touch .env
@@ -29,5 +24,10 @@ jobs:
           echo MONGO_HOST=mongy_mongo >> .env
           echo MONGO_DATA_DIR=/data/db >> .env
           echo MONGO_LOG_DIR=/dev/null >> .env
+      - name: List all files.
+        run: |
+          ls -l
+      - name: Docker build.
+        run: docker-compose build mongy_app
       - name: Run tests.
         run: docker-compose up mongy_app
