@@ -1,17 +1,20 @@
 import os
 import unittest
 import datetime
+import logging
 
 import pymongo
 from mongy_serializer.fields import StringField, DateTimeField, DictField, ListField
 from mongy_serializer.serializer import Serializer
 
+LOGGER = logging.getLogger(__name__)
 STATIC_NOW = datetime.datetime.now()
 MONGO_HOST = os.environ['MONGO_HOST']
 MONGO_USERNAME = os.environ['MONGO_INITDB_ROOT_USERNAME']
 MONGO_PASSWORD = os.environ['MONGO_INITDB_ROOT_PASSWORD']
 MONGO_DATABASE = os.environ['MONGO_INITDB_DATABASE']
 CONNECTION_STRING = f"mongodb://{MONGO_USERNAME}:{MONGO_PASSWORD}@{MONGO_HOST}:27017/?socketTimeoutMS=60000"
+LOGGER.info(f"Connecting to mongo db at {CONNECTION_STRING}.")
 client = pymongo.MongoClient(CONNECTION_STRING)
 
 
