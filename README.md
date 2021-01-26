@@ -18,10 +18,16 @@ The sole intention is to have a learning experience along with knowledge sharing
 # Testing
 Unittests are written within `py-mongo-serializer/tests` directory. You can run tests using docker as given below.
 
-*NOTE: Edit the docker-compose.yml file to add MONGO_INITDB_ROOT_PASSWORD, MONGO_INITDB_ROOT_USERNAME, MONGO_USERNAME, MONGO_PASSWORD environment variables.*
-
 ```
 cd py-mongo-serializer
+
+# create a .env file and add below environment variables.
+MONGO_INITDB_DATABASE=Mongy
+MONGO_INITDB_ROOT_USERNAME=<yourmongousername>
+MONGO_INITDB_ROOT_PASSWORD=<yourmongopassword>
+MONGO_HOST=mongy_mongo
+MONGO_DATA_DIR=/data/db
+MONGO_LOG_DIR=/dev/null
 
 docker-compose build
 docker-compose up

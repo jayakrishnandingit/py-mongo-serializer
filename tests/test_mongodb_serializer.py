@@ -8,9 +8,9 @@ from mongy_serializer.serializer import Serializer
 
 STATIC_NOW = datetime.datetime.now()
 MONGO_HOST = os.environ['MONGO_HOST']
-MONGO_USERNAME = os.environ['MONGO_USERNAME']
-MONGO_PASSWORD = os.environ['MONGO_PASSWORD']
-MONGO_DATABASE = os.environ['MONGO_DATABASE_NAME']
+MONGO_USERNAME = os.environ['MONGO_INITDB_ROOT_USERNAME']
+MONGO_PASSWORD = os.environ['MONGO_INITDB_ROOT_PASSWORD']
+MONGO_DATABASE = os.environ['MONGO_INITDB_DATABASE']
 CONNECTION_STRING = f"mongodb://{MONGO_USERNAME}:{MONGO_PASSWORD}@{MONGO_HOST}:27017/?socketTimeoutMS=60000"
 client = pymongo.MongoClient(CONNECTION_STRING)
 
