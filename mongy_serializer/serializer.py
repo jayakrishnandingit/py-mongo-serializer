@@ -27,42 +27,30 @@ class Serializer(metaclass=SerializerMeta):
     _id = IDField()
 
     def __init__(self, objects):
-        self.objects = objects
-        self.index = 0
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        if self.index >= self.total:
-            raise StopIteration
-        obj = self.objects[self.index]
-        self.index += 1
-        return obj
+        self.objects = iter(objects)
 
     @property
     def total(self):
-        """
-        We expect either a pymongo.cursor.Cursor or an iterable object.
-        """
-        try:
-            return self.objects.count()
-        except (AttributeError, TypeError, ValueError) as e:
-            try:
-                return len(self.objects)
-            except:
-                raise SerializerException("Data in invalid format. Expected a pymongo Cursor or an iterable object.")
-        except:
-            raise SerializerException("Data in invalid format. Expected a pymongo Cursor or an iterable object.")
+        return len(self.objects)
 
     @property
     def data(self):
-        for obj in self:
+        for obj in self.objects:
             yield self.serialize_object(obj)
 
+    def obj_has_field(self, obj, field_name):
+        return field_name in obj
+
+    def get_field_value(self, obj, field_name):
+        return obj.get(field_name)
+
+    def filter_obj_fields(self, obj):
+        return filter(lambda x: self.obj_has_field(obj, x[0]), self.fields)
+
     def serialize_object(self, obj):
+        fields = self.filter_obj_fields(obj)
         serialized_data = {}
-        for attr_name, field in self.fields:
-            # TODO: concurrency.
-            serialized_data[attr_name] = field.serialize(obj.get(attr_name))
+
+        for attr_name, field in fields:
+            serialized_data[attr_name] = field.serialize(self.get_field_value(obj, attr_name))
         return serialized_data

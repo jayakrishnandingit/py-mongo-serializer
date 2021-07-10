@@ -59,6 +59,10 @@ class IntField(SimpleField):
     field_type = int
 
 
+class BooleanField(SimpleField):
+    field_type = bool
+
+
 class DateField(SerializerField):
     """
     Special case simple field.
@@ -162,6 +166,11 @@ def field_dispatch(value, **kwargs):
 @field_dispatch.register(int)
 def _(value, **kwargs):
     return IntField(**kwargs)
+
+
+@field_dispatch.register(bool)
+def _(value, **kwargs):
+    return BooleanField(**kwargs)
 
 
 @field_dispatch.register(datetime.date)
